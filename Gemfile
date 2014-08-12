@@ -39,3 +39,8 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'slim'
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'rspec-mocks'
+end
