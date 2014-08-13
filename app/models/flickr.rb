@@ -12,13 +12,18 @@ class Flickr
     result_hash.slice(:page, :pages, :perpage, :total).merge(photos: photos)
   end
 
-  def self.build_search_url(params)
-    query_string = params.merge(
+  def self.default_params
+    {
       method: 'flickr.photos.search',
       api_key: ENV['FLICKR_API_KEY'],
       format: 'json',
-      nojsoncallback: 1
-    ).to_param
+      nojsoncallback: 1,
+      per_page: 24
+    }
+  end
+
+  def self.build_search_url(params)
+    query_string = params.merge(self.default_params).to_param
 
     url = "#{FLICKR_API_URL}?#{query_string}"
   end
@@ -27,5 +32,6 @@ class Flickr
 
   def self.call_api(url)
     open(url).read
+    # File.open('/Users/ren/Desktop/flickr-sample.json', "r").read
   end
 end

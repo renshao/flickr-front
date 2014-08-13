@@ -1,0 +1,23 @@
+<% content_for :results_content do %>
+
+  <%= render partial: 'pagination' %>
+
+  <div class="row">
+    <% @photos.each do |photo| %>
+
+      <div class="col-xs-6 col-sm-4 col-md-2">
+        <div class="thumbnail">
+          <%= link_to photo.large_url, class: 'fancybox' do %>
+            <%= image_tag photo.thumbnail_url %>
+          <% end %>
+        </div>
+      </div>
+    
+    <% end %>
+  </div>
+    
+  <%= render partial: 'pagination' %>
+
+<% end %>
+
+<%= render partial: 'results_template' %>

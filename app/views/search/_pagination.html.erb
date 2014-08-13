@@ -1,0 +1,32 @@
+<ul class="pagination">
+  <li>
+    <%= link_to url_for_page(@current_page - 1) do %>
+      &laquo;
+      <% if @current_page == 1 %>
+        <span class="sr-only">(current)</span>
+      <% end %>
+    <% end %>
+  </li>
+
+  <% current_page_numbers.each do |page_number| %>
+    
+    <%= content_tag :li, :class => (page_number == @current_page ? 'active' : '') do %>
+      <%= link_to url_for_page(page_number) do %>
+        <%= page_number %>
+        <% if page_number == @current_page %>
+          <span class="sr-only">(current)</span>
+        <% end %>
+      <% end %>
+    <% end %>
+
+  <% end %>
+
+  <li>
+    <%= link_to url_for_page(@current_page + 1) do %>
+      &raquo;
+      <% if @current_page == @pages %>
+        <span class="sr-only">(current)</span>
+      <% end %>
+    <% end %>
+  </li>
+</ul>
