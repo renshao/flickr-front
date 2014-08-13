@@ -1,4 +1,8 @@
 class SearchController < ApplicationController
+  # caches search requests. Avoid hitting Flickr API unnecessary for better response time
+  # and user experience
+  caches_action :search, :expires_in => 5.minutes, :cache_path => Proc.new {search_path params}
+
   def index
   end
 
