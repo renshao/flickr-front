@@ -40,9 +40,11 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'slim'
-
 group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-mocks'
 end
+
+gem 'rails_12factor', group: :production
+
+ruby "2.1.2"
