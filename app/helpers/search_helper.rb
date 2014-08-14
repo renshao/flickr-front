@@ -11,11 +11,17 @@ module SearchHelper
   end
 
   def current_page_numbers
-    base = (@current_page - 1) / PAGE_NUMBERS_SIZE 
-    mod = (@current_page - 1) % PAGE_NUMBERS_SIZE
+    current_page = @pagination_info[:page]
+    base = (current_page - 1) / PAGE_NUMBERS_SIZE 
+    mod = (current_page - 1) % PAGE_NUMBERS_SIZE
     first = base * PAGE_NUMBERS_SIZE + 1
+    
     last = first + PAGE_NUMBERS_SIZE - 1
+    if last > @pagination_info[:pages]
+      last = @pagination_info[:pages]
+    end
     
     (first..last).to_a
   end
+
 end

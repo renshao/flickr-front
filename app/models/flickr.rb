@@ -6,10 +6,20 @@ class Flickr
   def self.search(params)
     json = self.call_api(self.build_search_url params)
     result_hash = HashWithIndifferentAccess.new(JSON.parse json)[:photos]
-    
     photos = result_hash[:photo].map { |attributes| Photo.new(attributes) }
 
-    result_hash.slice(:page, :pages, :perpage, :total).merge(photos: photos)
+    # ensure all values are integers (as Flickr sometimes return string values like "7300")
+    pagination_info = result_hash.slice(:page, :pages, :perpage, :total)
+    pagination_info.each do |key, value|
+      unless value.is_a?(Integer)
+        pagination_info[key] = value.to_i
+      end
+    end
+
+    {
+      pagination_info: pagination_info,
+      photos: photos
+    }
   end
 
   def self.default_params
@@ -32,6 +42,5 @@ class Flickr
 
   def self.call_api(url)
     open(url).read
-    # File.open('/Users/ren/Desktop/flickr-sample.json', "r").read
   end
 end

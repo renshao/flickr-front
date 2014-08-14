@@ -1,9 +1,15 @@
 <nav class="navbar navbar-default" role="navigation">
+
   <div class="container">
+    <h4 id="small-logo">
+      <%= link_to root_url, class: 'logo' do %>
+        Flickr Front <span class="glyphicon glyphicon-home"></span>
+      <% end %>
+    </h4>
     <div class="row">
       <%= form_for(:search, url: search_path, method: :get, html: {class: 'navbar-form navbar-left'}) do |f| %>
         <div class="form-group">
-          <%= f.text_field :text, value: @query, class: 'form-control', placeholder: 'Search' %>
+          <%= f.text_field :text, value: @query, id: 'search-query-field', class: 'form-control', placeholder: 'keywords' %>
         </div>  
         <button class="btn btn-primary" type="submit">Search</button>
       <% end %>
@@ -12,5 +18,9 @@
 </nav>
 
 <div class="container">
+  <% flash.each do |key, value| %>
+    <%= content_tag :div, value, class: "alert alert-info" %>
+  <% end %>
+
   <%= yield :results_content %>
 </div>

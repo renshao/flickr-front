@@ -23,8 +23,7 @@ describe Flickr do
 
     result = Flickr.search(text: 'Niagara')
 
-    result[:page].should == 2
-    result[:pages].should == 80
+    result[:pagination_info].should include(page: 2, pages: 80)
     
     photo0 = result[:photos][0]
     photo0.id.should == "1"
